@@ -2,7 +2,7 @@ package core.db_manager;
 
 import core.constants.DBType;
 
-public class DbConfig {
+public class DBConfig {
   private DBType dbType;
   private String dbHost;
   private int port;
@@ -60,7 +60,7 @@ public class DbConfig {
 
   @Override
   public String toString() {
-    return "DbConfig{"
+    return "DBConfig{"
         + "dbHost='"
         + dbHost
         + '\''

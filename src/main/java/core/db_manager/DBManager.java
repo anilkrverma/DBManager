@@ -25,11 +25,8 @@ public class DBManager implements IDBManager {
     Connection connection =
         new ConnectionFactory().getConnection(driver, dbHost, port, dbName, userName, password);
 
-    Statement statement = null;
-    ResultSet resultSet = null;
-    try {
-      statement = connection.createStatement();
-      resultSet = statement.executeQuery(query);
+    try (Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query)) {
 
       while (resultSet.next()) {
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
@@ -41,19 +38,11 @@ public class DBManager implements IDBManager {
 
         results.add(rowData);
       }
-
-    } finally {
-      if (resultSet != null) {
-        resultSet.close();
-      }
-      if (statement != null) {
-        statement.close();
-      }
     }
     return results;
   }
 
-  public List<Map<String, String>> doSelect(DbConfig dbConfig, String query) throws SQLException {
+  public List<Map<String, String>> doSelect(DBConfig dbConfig, String query) throws SQLException {
 
     return doSelect(
         dbConfig.getDbType(),
@@ -77,21 +66,15 @@ public class DBManager implements IDBManager {
 
     Connection connection =
         new ConnectionFactory().getConnection(driver, dbHost, port, dbName, userName, password);
-    Statement st = null;
-    int noOfRows = 0;
-    try {
-      st = connection.createStatement();
+    int noOfRows;
+    try (Statement st = connection.createStatement()) {
       noOfRows = st.executeUpdate(query);
-    } finally {
-      if (st != null) {
-        st.close();
-      }
     }
     System.out.println("No. of rows affected after running " + query + " is: " + noOfRows);
     return noOfRows;
   }
 
-  public int executeUpdate(DbConfig dbConfig, String query) throws SQLException {
+  public int executeUpdate(DBConfig dbConfig, String query) throws SQLException {
 
     return executeUpdate(
         dbConfig.getDbType(),
