@@ -10,10 +10,17 @@ public class ConnectionFactory {
   private static HashMap<String, Connection> knownDBConnections = new HashMap<>();
 
   public Connection getConnection(
-      DBType driver, String dbHost, int port, String dbName, String userName, String password) {
+      DBType driver,
+      String dbHost,
+      int port,
+      String dbName,
+      boolean isSslEnabled,
+      String userName,
+      String password) {
+    String url;
     switch (driver) {
       case MYSQL:
-        String url = "jdbc:mysql://" + dbHost + ":" + port + "/" + dbName;
+        url = "jdbc:mysql://" + dbHost + ":" + port + "/" + dbName + "?useSSL=" + isSslEnabled;
         if (knownDBConnections.containsKey(url)) {
           connection = knownDBConnections.get(url);
         } else {
@@ -22,7 +29,7 @@ public class ConnectionFactory {
         }
         break;
       case POSTGRES:
-        url = "jdbc:postgresql://" + dbHost + ":" + port + "/" + dbName;
+        url = "jdbc:postgresql://" + dbHost + ":" + port + "/" + dbName + "?useSSL=" + isSslEnabled;
         if (knownDBConnections.containsKey(url)) {
           connection = knownDBConnections.get(url);
         } else {

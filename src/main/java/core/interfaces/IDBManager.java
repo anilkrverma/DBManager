@@ -12,6 +12,7 @@ public interface IDBManager {
           String dbHost,
           int port,
           String dbName,
+          boolean isSslEnabled,
           String userName,
           String password,
           String query)
@@ -22,6 +23,7 @@ public interface IDBManager {
       String dbHost,
       int port,
       String dbName,
+      boolean isSslEnabled,
       String userName,
       String password,
       String query)

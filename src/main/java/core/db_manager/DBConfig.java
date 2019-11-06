@@ -7,6 +7,7 @@ public class DBConfig {
   private String dbHost;
   private int port;
   private String dbName;
+  private boolean isSslEnabled = false;
   private String userName;
   private String password;
 
@@ -42,6 +43,14 @@ public class DBConfig {
     this.dbName = dbName;
   }
 
+  public boolean isSslEnabled() {
+    return isSslEnabled;
+  }
+
+  public void setSslEnabled(boolean sslEnabled) {
+    isSslEnabled = sslEnabled;
+  }
+
   public String getUserName() {
     return userName;
   }
@@ -68,6 +77,9 @@ public class DBConfig {
         + port
         + ", dbName='"
         + dbName
+        + '\''
+        + ", isSslEnabled='"
+        + isSslEnabled
         + '\''
         + ", userName='"
         + userName

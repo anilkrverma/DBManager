@@ -17,13 +17,14 @@ public class DBManager implements IDBManager {
       String dbHost,
       int port,
       String dbName,
+      boolean isSslEnabled,
       String userName,
       String password,
       String query)
       throws SQLException {
     List<Map<String, String>> results = new ArrayList<>();
     Connection connection =
-        new ConnectionFactory().getConnection(driver, dbHost, port, dbName, userName, password);
+        new ConnectionFactory().getConnection(driver, dbHost, port, dbName, isSslEnabled, userName, password);
 
     try (Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query)) {
@@ -49,6 +50,7 @@ public class DBManager implements IDBManager {
         dbConfig.getDbHost(),
         dbConfig.getPort(),
         dbConfig.getDbName(),
+        dbConfig.isSslEnabled(),
         dbConfig.getUserName(),
         dbConfig.getPassword(),
         query);
@@ -59,13 +61,14 @@ public class DBManager implements IDBManager {
       String dbHost,
       int port,
       String dbName,
+      boolean isSslEnabled,
       String userName,
       String password,
       String query)
       throws SQLException {
 
     Connection connection =
-        new ConnectionFactory().getConnection(driver, dbHost, port, dbName, userName, password);
+        new ConnectionFactory().getConnection(driver, dbHost, port, dbName, isSslEnabled, userName, password);
     int noOfRows;
     try (Statement st = connection.createStatement()) {
       noOfRows = st.executeUpdate(query);
@@ -81,6 +84,7 @@ public class DBManager implements IDBManager {
         dbConfig.getDbHost(),
         dbConfig.getPort(),
         dbConfig.getDbName(),
+        dbConfig.isSslEnabled(),
         dbConfig.getUserName(),
         dbConfig.getPassword(),
         query);
