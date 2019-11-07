@@ -3,11 +3,11 @@ package core.interfaces;
 import core.constants.DBType;
 
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public interface IDBManager {
-    List<Map<String, String>> doSelect(
+    List<LinkedHashMap<String, String>> doSelect(
           DBType driver,
           String dbHost,
           int port,

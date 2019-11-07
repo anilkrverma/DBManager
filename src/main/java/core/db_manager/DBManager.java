@@ -8,11 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DBManager implements IDBManager {
 
-  public List<Map<String, String>> doSelect(
+  public List<LinkedHashMap<String, String>> doSelect(
       DBType driver,
       String dbHost,
       int port,
@@ -22,7 +21,7 @@ public class DBManager implements IDBManager {
       String password,
       String query)
       throws SQLException {
-    List<Map<String, String>> results = new ArrayList<>();
+    List<LinkedHashMap<String, String>> results = new ArrayList<>();
     Connection connection =
         new ConnectionFactory().getConnection(driver, dbHost, port, dbName, isSslEnabled, userName, password);
 
@@ -31,7 +30,7 @@ public class DBManager implements IDBManager {
 
       while (resultSet.next()) {
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-        Map<String, String> rowData = new LinkedHashMap<>();
+        LinkedHashMap<String, String> rowData = new LinkedHashMap<>();
 
         for (int col = 1; col <= resultSetMetaData.getColumnCount(); col++) {
           rowData.put(resultSetMetaData.getColumnLabel(col), resultSet.getString(col));
@@ -43,7 +42,7 @@ public class DBManager implements IDBManager {
     return results;
   }
 
-  public List<Map<String, String>> doSelect(DBConfig dbConfig, String query) throws SQLException {
+  public List<LinkedHashMap<String, String>> doSelect(DBConfig dbConfig, String query) throws SQLException {
 
     return doSelect(
         dbConfig.getDbType(),
